@@ -21,6 +21,10 @@
 		$InterestsManager->addInterest($_GET["new_interest"]);
 		
 	}
+	
+	if(isset($_GET["new_dd_selection"])){
+		$add_new_userinterest_response = $InterestsManager->addUserInterest($_GET["new_dd_selection"]);
+	}
  ?>
 
 <p>
@@ -30,7 +34,27 @@
 
 <h2>lisa huviala</h2>
  
-  <?php if(isset($add_new_response->error)): ?>
+  <?php if(isset($add_new_userinterest_response->error)): ?>
+  
+	<p style="color:red;">
+		<?=$add_new_userinterest_response->error->message;?>
+	</p>
+  
+  <?php elseif(isset($add_new_userinterest_response->success)): ?>
+	
+	<p style="color:green;" >
+		<?=$add_new_userinterest_response->success->message;?>
+	</p>
+	
+  <?php endif; ?>
+  
+  <form>
+  	<input name="new_interest" type="text" placeholder="Huviala"><br><br>
+  	<input type="submit" name="lisa" value="lisa">
+  </form>
+  
+<h2>Minu huvialad</h2>
+ <?php if(isset($add_new_response->error)): ?>
   
 	<p style="color:red;">
 		<?=$add_new_response->error->message;?>
@@ -43,22 +67,8 @@
 	</p>
 	
   <?php endif; ?>
-  
-  <form>
-  	<input name="new_interest" type="text" placeholder="Huviala"><br><br>
-  	<input type="submit" name="lisa" value="lisa">
-  </form>
-  
-  
-  
-  
-  
-  
-  
-<h2>Minu huvialad</h2> 
 <form>
-	<!--siia järele tuleb rippmenüü -->
+	<!-- siia järele tuleb rippmenüü -->
 	<?=$InterestsManager->createDropdown();?>
 	<input type="submit">
 </form>
-
